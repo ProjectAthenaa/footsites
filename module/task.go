@@ -5,7 +5,6 @@ import (
 	"github.com/ProjectAthenaa/sonic-core/sonic/base"
 	"github.com/ProjectAthenaa/sonic-core/sonic/database/ent/product"
 	"github.com/ProjectAthenaa/sonic-core/sonic/face"
-	"github.com/ProjectAthenaa/sonic-core/sonic/frame"
 )
 
 var _ face.ICallback = (*Task)(nil)
@@ -40,6 +39,7 @@ func (tk *Task) OnPreStart() error {
 func (tk *Task) OnStarting() {
 	tk.FastClient.CreateCookieJar()
 	tk.InitializeSession()
+	tk.AwaitMonitor()
 	tk.Flow()
 }
 func (tk *Task) OnPause() error {
@@ -52,18 +52,7 @@ func (tk *Task) OnStopping() {
 }
 
 func (tk *Task) Flow() {
-	pubsub, err := frame.SubscribeToChannel(tk.Data.Channels.MonitorChannel)
-	if err != nil{
-		tk.Stop()
-		return
-	}
-
-	tk.SetStatus(module.STATUS_MONITORING)
-	monitorData := <- pubsub.Chan(tk.Ctx)
-	tk.PID = monitorData["pid"].(string)
-
 	funcarr := []func(){
-		tk.InitializeSession,
 		tk.ATC,
 		tk.CartAuthenticate,
 		tk.SubmitShipping,
