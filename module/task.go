@@ -53,6 +53,7 @@ func (tk *Task) OnStopping() {
 
 func (tk *Task) Flow() {
 	funcarr := []func(){
+		//wait queue
 		tk.ATC,
 		tk.CartAuthenticate,
 		tk.SubmitShipping,
