@@ -166,6 +166,7 @@ func (tk *Task) AdyenConfirm() {
 		tk.Stop()
 		return
 	}
+	req.Headers = tk.GenerateDefaultHeaders(fmt.Sprintf("https://www.%s.com", sites[tk.Site].name))
 
 	//todo check valid response
 	_, err = tk.Do(req)

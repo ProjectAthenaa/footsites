@@ -13,6 +13,8 @@ func (tk *Task) ATC(){
 		tk.Stop()
 		return
 	}
+	req.Headers = tk.GenerateDefaultHeaders(fmt.Sprintf("https://www.%s.com", sites[tk.Site].name))
+
 	res, err := tk.Do(req)
 	if err != nil{
 		tk.SetStatus(module.STATUS_ERROR, "couldnt make atc request")
@@ -34,6 +36,8 @@ func (tk *Task) CartAuthenticate() {
 		tk.Stop()
 		return
 	}
+	req.Headers = tk.GenerateDefaultHeaders(fmt.Sprintf("https://www.%s.com", sites[tk.Site].name))
+
 	_, err = tk.Do(req)
 	if err != nil{
 		tk.SetStatus(module.STATUS_ERROR, "couldnt put auth req")

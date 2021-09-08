@@ -39,6 +39,7 @@ func (tk *Task) SubmitShipping(){
 		tk.Stop()
 		return
 	}
+	req.Headers = tk.GenerateDefaultHeaders(fmt.Sprintf("https://www.%s.com", sites[tk.Site].name))
 
 	_, err = tk.Do(req)
 	if err != nil{
@@ -71,6 +72,9 @@ func (tk *Task) SubmitBilling(){
 		tk.Stop()
 		return
 	}
+	req.Headers = tk.GenerateDefaultHeaders(fmt.Sprintf("https://www.%s.com", sites[tk.Site].name))
+
+
 	_, err = tk.Do(req)
 	if err != nil{
 		tk.SetStatus(module.STATUS_ERROR, "couldnt post billing req")

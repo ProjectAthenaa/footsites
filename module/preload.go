@@ -12,6 +12,7 @@ func (tk *Task) InitializeSession(){
 		tk.Stop()
 		return
 	}
+	req.Headers = tk.GenerateDefaultHeaders(fmt.Sprintf("https://www.%s.com", sites[tk.Site].name))
 
 	res, err := tk.Do(req)
 	if err != nil{
