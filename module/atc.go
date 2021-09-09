@@ -8,7 +8,7 @@ import (
 
 func (tk *Task) ATC(){
 	for {
-		req, err := tk.NewRequest("POST", fmt.Sprintf(`https://%s.hosts.fastly.net/api/users/carts/current/entries?timestamp=%d`, GetCacheNode(), time.Now().Unix()), []byte(fmt.Sprintf(`{"productQuantity":1,"productId":"%s"}`, tk.PID)))
+		req, err := tk.NewRequest("POST", fmt.Sprintf(`https://%s.hosts.fastly.net/api/users/carts/current/entries?timestamp=%d`, GetCacheNode(), time.Now().Unix()), []byte(fmt.Sprintf(`{"productQuantity":1,"productId":"%s"}`, tk.VariantId)))
 		if err != nil{
 			tk.SetStatus(module.STATUS_ERROR, "couldnt create atc request")
 			tk.Stop()

@@ -13,7 +13,12 @@ type Task struct {
 	*base.BTask
 
 	PID string
+	VariantId string
 	Site product.Site
+
+	QueueItRedirect string
+	QueueItUserId string
+
 	CsrfToken string
 	CartGuid string
 }

@@ -22,8 +22,9 @@ func (tk *Task) AwaitMonitor(){
 		color = monitorData["color"].(string)
 		price = monitorData["price"].(string)
 		if inString(size, tk.Data.TaskData.Size) && inString(color, tk.Data.TaskData.Color){
-			tk.PID = variantid
+			tk.VariantId = variantid
 			tk.ReturningFields.Price = price
+			tk.PID = monitorData["pid"].(string)
 		}
 	}
 }
